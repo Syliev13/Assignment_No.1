@@ -1,43 +1,43 @@
 package org.example;
 
-import java.util.Scanner;
+import org.example.interfaces.IStudy;
+import org.example.interfaces.IWork;
+import org.example.model.Employee;
+import org.example.model.Human;
+import org.example.model.Student;
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Создание объектов разными способами (полиморфизм)
+        Student student = new Student("Maksat", 19, "AITU");
+        Human employeeAsHuman = new Employee("Alikhan", 30, 1200);
+        IWork employeeAsWork = new Employee("Turlan", 28, 1500);
+        IStudy studentAsStudy = new Student("Akerke", 20, "MUA");
 
-        // Input for Human object
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter age: ");
-        int age = scanner.nextInt();
-
-        System.out.print("Is male? (true/false): ");
-        boolean isMale = scanner.nextBoolean();
-
-        Human human = new Human(age, name, isMale);
-
-        // Employee object
-        Employee employee = new Employee(30, "Matvey", true, "Developer", 2500.5f);
-
-        // Student object
-        Student student = new Student(20, "Akerke", false, "Computer Science", 3.7f);
-
-        // Using getters, setters and methods
-        human.introduce();
-        System.out.println("Role: " + human.getRole());
-
-        employee.introduce();
-        System.out.println("Role: " + employee.getRole());
-        System.out.println("Company: " + Employee.companyName);
-
+        // Методы Student
         student.introduce();
-        System.out.println("Role: " + student.getRole());
+        student.study();
+        student.takeExam();
+        student.showUniversity();
+        student.sleep();
 
-        // Manipulating data using setters
-        student.setGpa(3.9f);
-        System.out.println("Updated GPA: " + student.getGpa());
+        System.out.println();
+
+        // Методы Employee через Human
+        employeeAsHuman.introduce();
+        employeeAsHuman.sleep();
+
+        System.out.println();
+
+        // Методы Employee через интерфейс
+        employeeAsWork.work();
+        System.out.println("Salary: " + employeeAsWork.getSalary());
+
+        System.out.println();
+
+        // Методы Student через интерфейс
+        studentAsStudy.study();
+        studentAsStudy.takeExam();
     }
 }
